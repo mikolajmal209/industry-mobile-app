@@ -20,12 +20,8 @@ const Main = ({ navigation }) => {
             <View>
                 <Text style={styles.Text1}>Industry APP</Text>
             </View>
-            <View style={styles.zdjecie}>
-                <Image style={styles.image1} source={'/assets/splash.png'} />
-            </View>
-            <View></View>
             <TouchableOpacity
-                onPress={() => navigation.navigate('Paho')}
+                onPress={() => navigation.navigate('Log')}
                 style={styles.startbutton}
             >
                 <Text style={styles.text2}>Let's start</Text>
@@ -41,7 +37,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
-        marginTop: '20%',
         justifyContent: 'center',
     },
     Text1: {
@@ -82,9 +77,17 @@ function App() {
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName='Main'>
-                <Stack.Screen name='Main' component={Main} />
+                <Stack.Screen
+                    name='Main'
+                    component={Main}
+                    options={{ headerShown: false }}
+                />
                 <Stack.Screen name='Paho' component={PahoConnection} />
-                <Stack.Screen name='Log' component={Log} />
+                <Stack.Screen
+                    name='Log'
+                    component={Log}
+                    options={{ headerShown: false }}
+                />
             </Stack.Navigator>
         </NavigationContainer>
     );

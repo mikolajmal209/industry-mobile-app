@@ -11,11 +11,10 @@ import {
 import Paho from 'paho-mqtt';
 
 class Poho extends React.Component {
-    connection() {
+    connection() {  
         var client = new Paho.Client(
-            'cf750ebd4d664c51b8ac93a46f288c99.s1.eu.hivemq.cloud',
-            Number(8884),
-            '/mqtt',
+            '192.168.7.2',
+            Number(1883),
             'Mikolaj'
         );
         client.onMessageArrived = function (message) {
@@ -29,9 +28,9 @@ class Poho extends React.Component {
 
         client.connect({
             onSuccess: function () {
-                console.log('Połącznie testowe z chmurą');
-                // client.subscribe('test');
-                global.par1 = true;
+                // console.log('Połącznie testowe z chmurą');
+                // // client.subscribe('test');
+                // global.par1 = true;
             },
             onFailure: function () {
                 console.log('Brak połączenia');
@@ -39,7 +38,7 @@ class Poho extends React.Component {
                 global.par1 = false;
             },
             userName: 'Mikolaj',
-            password: 'Kospit21',
+            password: 'kospit21',
             useSSL: true,
         });
     }
