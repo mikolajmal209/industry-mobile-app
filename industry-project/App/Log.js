@@ -26,12 +26,12 @@ class Log extends Component {
         if (Username.length == 0 || Password.length == 0) {
             alert('Required Field Is Missing!!!');
         } else {
-            let APIURL = 'http://127.0.0.1:5000/login';
+            let APIURL = 'http://192.168.1.59:5000/login';
 
             let headers = {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                // 'Access-Control-Allow-Origin': 'http://127.0.0.1:5000',
+                // 'Access-Control-Allow-Origin': 'http://192.168.1.59:5000/login',
                 // 'Access-Control-Allow-Credentials': true,
             };
 
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20,
         marginTop: 50,
-        backgroundColor: '#f0ffff'
+        backgroundColor: '#f0ffff',
     },
     textInput: {
         borderBottomColor: '#000',

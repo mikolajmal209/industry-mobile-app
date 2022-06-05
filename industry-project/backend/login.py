@@ -11,8 +11,6 @@ from flask_cors import CORS, cross_origin
 app  = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-
-
 hostname = 'localhost'
 database = 'MobileApp'
 username = 'postgres'
@@ -88,4 +86,5 @@ def login():
         resp.status_code = 400
         return resp
 if __name__ == '__main__':
-    app.run()
+    app.debug = True
+    app.run(host='0.0.0.0',port=5000)
