@@ -11,10 +11,10 @@ import {
 import Paho from 'paho-mqtt';
 
 class Poho extends React.Component {
-    connection() {  
+    connection() {
         var client = new Paho.Client(
-            '192.168.7.2',
-            Number(1883),
+            'cf750ebd4d664c51b8ac93a46f288c99.s1.eu.hivemq.cloud',
+            Number(8883),
             'Mikolaj'
         );
         client.onMessageArrived = function (message) {

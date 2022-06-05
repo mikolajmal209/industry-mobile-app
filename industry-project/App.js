@@ -22,7 +22,7 @@ const Main = ({ navigation }) => {
             </View>
             <TouchableOpacity
                 onPress={() => navigation.navigate('Log')}
-                style={styles.startbutton}
+                style={styles.startbutton} 
             >
                 <Text style={styles.text2}>Let's start</Text>
 
@@ -32,6 +32,27 @@ const Main = ({ navigation }) => {
     );
 };
 
+const Stack = createNativeStackNavigator();
+
+function App() {
+    return (
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName='Main'>
+                <Stack.Screen
+                    name='Main'
+                    component={Main}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen name='Paho' component={PahoConnection} />
+                <Stack.Screen
+                    name='Log'
+                    component={Log}
+                    options={{ headerShown: false }}
+                />
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
+}
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -71,59 +92,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
 });
-const Stack = createNativeStackNavigator();
-
-function App() {
-    return (
-        <NavigationContainer>
-            <Stack.Navigator initialRouteName='Main'>
-                <Stack.Screen
-                    name='Main'
-                    component={Main}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen name='Paho' component={PahoConnection} />
-                <Stack.Screen
-                    name='Log'
-                    component={Log}
-                    options={{ headerShown: false }}
-                />
-            </Stack.Navigator>
-        </NavigationContainer>
-    );
-}
 
 export default App;
-// import * as React from 'react';
-// import { Button, View, Text } from 'react-native';
-// import { NavigationContainer } from '@react-navigation/native';
-// import { createNativeStackNavigator } from '@react-navigation/native-stack';
-// import PahoConnection from './App/PahoConnection';
-// function HomeScreen({ navigation }) {
-//     return (
-//         <View
-//             style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
-//         >
-//             <Text>Home Screen</Text>
-//             <Button
-//                 title='Go to Details'
-//                 onPress={() => navigation.navigate('Paho')}
-//             />
-//         </View>
-//     );
-// }
-
-// const Stack = createNativeStackNavigator();
-
-// function App() {
-//     return (
-//         <NavigationContainer>
-//             <Stack.Navigator initialRouteName='Home'>
-//                 <Stack.Screen name='Home' component={HomeScreen} />
-//                 <Stack.Screen name='Paho' component={PahoConnection} />
-//             </Stack.Navigator>
-//         </NavigationContainer>
-//     );
-// }
-
-// export default App;

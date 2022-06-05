@@ -1,75 +1,172 @@
-import * as React from 'react';
+import React, { Component } from 'react';
 import {
     StyleSheet,
-    Text,
     View,
+    Pressable,
+    Text,
     TextInput,
-    SafeAreaView,
     TouchableOpacity,
-    Image,
 } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const Log = () => {
-    const [text1, onChangeText] = React.useState('Login');
-    const [text2, onChangeText2] = React.useState('Password');
+class Log extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: '',
+            password: '',
+            check_textInputChange: false,
+            secureTextEntry: true,
+        };
+    }
 
-    return (
-        <SafeAreaView style={styles.container}>
-            <Text style={styles.login}>Login</Text>
-            <View style={styles.TextInput}>
-                <TextInput
-                    style={styles.TextInput2}
-                    onChangeText={onChangeText}
-                    value={text1}
-                ></TextInput>
-                <Ionicons name='mail' size={20} color='#f324' />
+    InsertRecord = () => {
+        var Username = this.state.username;
+        var Password = this.state.password;
+
+        if (Username.length == 0 || Password.length == 0) {
+            alert('Required Field Is Missing!!!');
+        } else {
+            let APIURL = 'http://127.0.0.1:5000/login';
+
+            let headers = {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                // 'Access-Control-Allow-Origin': 'http://127.0.0.1:5000',
+                // 'Access-Control-Allow-Credentials': true,
+            };
+
+            let Data = {
+                Username: Username,
+                Password: Password,
+            };
+
+            fetch(APIURL, {
+                method: 'POST',
+                credentials: 'omit',
+                headers: headers,
+                body: JSON.stringify(Data),
+            })
+                .then((Response) => Response.json())
+                .then((Response) => {
+                    if (Response.Message == 'Success') {
+                        console.log('true');
+                        this.props.navigation.navigate('Paho');
+                    } else if (
+                        Response.Message == 'password or login is wrong'
+                    ) {
+                        alert('Wrong Username or Password!!!');
+                    }
+                    // console.log(Data);
+                });
+            // .catch((error) => {
+            //     console.error('ERROR FOUND' + error);
+            // });
+        }
+    };
+
+    updateSecureTextEntry() {
+        this.setState({
+            ...this.state,
+            secureTextEntry: !this.state.secureTextEntry,
+        });
+    }
+
+    render() {
+        return (
+            <View style={styles.viewStyle}>
+                <View style={styles.action}>
+                    <TextInput
+                        placeholder='Enter Username'
+                        placeholderTextColor='#000'
+                        style={styles.textInput}
+                        onChangeText={(username) => this.setState({ username })}
+                    />
+                </View>
+
+                <View style={styles.action}>
+                    <TextInput
+                        placeholder='Enter Password'
+                        placeholderTextColor='#000'
+                        style={styles.textInput}
+                        secureTextEntry={
+                            this.state.secureTextEntry ? true : false
+                        }
+                        onChangeText={(password) => this.setState({ password })}
+                    />
+                    <TouchableOpacity
+                        onPress={this.updateSecureTextEntry.bind(this)}
+                    ></TouchableOpacity>
+                </View>
+
+                {/* Button */}
+
+                <View style={styles.loginButtonSection}>
+                    <Pressable
+                        style={styles.loginButton}
+                        onPress={() => {
+                            this.InsertRecord();
+                        }}
+                    >
+                        <Text style={styles.text}>Log In</Text>
+                    </Pressable>
+                </View>
             </View>
-
-            <View style={styles.TextInput}>
-                <TextInput
-                    style={styles.TextInput2}
-                    onChangeText={onChangeText2}
-                    value={text2}
-                ></TextInput>
-                <Ionicons name='key' size={20} color='#f324' />
-            </View>
-        </SafeAreaView>
-    );
-};
+        );
+    }
+}
 
 const styles = StyleSheet.create({
-    container: {
+    viewStyle: {
         flex: 1,
-        backgroundColor: '#fff',
+        padding: 20,
+        marginTop: 50,
+        backgroundColor: '#f0ffff'
+    },
+    textInput: {
+        borderBottomColor: '#000',
+        borderBottomWidth: 1,
+        marginBottom: 50,
+        height: 40,
+        fontSize: 20,
+        flex: 1,
+    },
+    button: {
+        alignItems: 'center',
         justifyContent: 'center',
-        paddingHorizontal: 25,
+        height: 35,
+        width: 150,
+        borderRadius: 10,
+        backgroundColor: '#000',
+    },
+    action: {
+        flexDirection: 'row',
+        marginTop: 10,
+        paddingBottom: 5,
+        width: '100%',
+    },
+    text: {
+        fontSize: 18,
+        lineHeight: 21,
+        fontWeight: 'bold',
+        letterSpacing: 0.25,
+        color: 'white',
+        textTransform: 'uppercase',
+    },
+    loginButtonSection: {
+        width: '100%',
+        height: '30%',
+        marginTop: 30,
+        justifyContent: 'center',
         alignItems: 'center',
     },
-    login: {
-        paddingHorizontal: 10,
-        fontSize: 24,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-    TextInput: {
-        marginTop: '3%',
-        backgroundColor: '#f999',
-        padding: 20,
-        width: '30%',
-        borderRadius: 20,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    TextInput2: {
-        height: '80%',
-        width: '60%',
-        borderColor: '#fff',
-        borderBottomColor: '#898',
-        borderBottomWidth: 2,
+    loginButton: {
+        backgroundColor: '#deb887',
+        color: 'white',
+        height: 40,
+        justifyContent: 'center', //up dwn
+        alignItems: 'center', //r & l
+        width: '70%',
+        borderRadius: 10,
     },
 });
-
 export default Log;
