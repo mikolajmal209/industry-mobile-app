@@ -12,11 +12,7 @@ import Paho from 'paho-mqtt';
 
 class Poho extends React.Component {
     connection() {
-        var client = new Paho.Client(
-            'cf750ebd4d664c51b8ac93a46f288c99.s1.eu.hivemq.cloud',
-            Number(8883),
-            'Mikolaj'
-        );
+        var client = new Paho.Client('192.168.7.2', Number(1883), 'mqtt');
         client.onMessageArrived = function (message) {
             console.log(
                 'Topic: ' +
@@ -28,8 +24,8 @@ class Poho extends React.Component {
 
         client.connect({
             onSuccess: function () {
-                // console.log('Połącznie testowe z chmurą');
-                // // client.subscribe('test');
+                console.log('Połącznie testowe z Beagle');
+                client.subscribe('test');
                 // global.par1 = true;
             },
             onFailure: function () {
@@ -38,7 +34,7 @@ class Poho extends React.Component {
                 global.par1 = false;
             },
             userName: 'Mikolaj',
-            password: 'kospit21',
+            password: 'Kospit21',
             useSSL: true,
         });
     }
@@ -51,7 +47,7 @@ class Poho extends React.Component {
                         this.connection();
                     }}
                 >
-                    <Text style={styles.Text1}>connect to MQTT server</Text>
+                    <Text style={styles.Text1}>Connect to server</Text>
                 </TouchableOpacity>
             </SafeAreaView>
         );
@@ -69,7 +65,7 @@ const styles = StyleSheet.create({
     przycisk: {
         backgroundColor: '#7fffd4',
         padding: 20,
-        width: '20%',
+        width: '50%',
         borderRadius: 20,
     },
     Text1: {

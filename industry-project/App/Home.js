@@ -1,19 +1,68 @@
-// import { NavigationContainer } from '@react-navigation/native';
-// import { createNativeStackNavigator } from '@react-navigation/native-stack';
-// import log from './log';
-// import Map from './map';
-// import PahoConnection from './PahoConnection';
-// import Scada from './scada';
+import * as React from 'react';
+import { Text, View, StyleSheet } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import MapScreen from './MapScreen';
+import PahoConnection from './PahoConnection';
+import Charts from './Charts';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
-// const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
-// function Home() {
-//     return (
-//         <NavigationContainer>
-//             <Stack.Navigator initialRouteName='Home'>
-//                 <Stack.Screen name='Home' component={Home} />
-//                 <Stack.Screen name='Paho' component={PahoConnection} />
-//             </Stack.Navigator>
-//         </NavigationContainer>
-//     );
-// }
+function HomeScreen() {
+    return <TabNavigator />;
+}
+
+const TabNavigator = () => {
+    return (
+        <Tab.Navigator
+            screenOptions={{
+                headerShown: false,
+                tabBarShowLabel: false,
+                tabBarStyle: { backgroundColor: '#7fffd4' },
+                tabBarActiveTintColor: '#8a2be2',
+            }}
+        >
+            <Tab.Screen
+                name='MapScreen'
+                component={MapScreen}
+                options={{
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name='map-sharp' size={size} color={color} />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name='Connection'
+                component={PahoConnection}
+                options={{
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name='wifi' size={size} color={color} />
+                    ),
+                }}
+            />
+
+            <Tab.Screen
+                name='Charts'
+                component={Charts}
+                options={{
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons
+                            name='stats-chart'
+                            size={size}
+                            color={color}
+                        />
+                    ),
+                }}
+            />
+        </Tab.Navigator>
+    );
+};
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+});
+
+export default HomeScreen;

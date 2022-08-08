@@ -1,4 +1,5 @@
 
+from logging import exception
 from requests import session
 from flask import Flask,jsonify,request,session
 from flask_sqlalchemy import SQLAlchemy
@@ -39,13 +40,6 @@ except Exception as error:
 @app.route('/')
 @cross_origin()
 def home():
-    # if 'username' in session:
-    #     username = session['username']
-    #     return jsonify({'message ': 'You are already logged in', 'username' : username})
-    # else:
-    #     resp = jsonify({'message' : 'Unauthorized'})
-    #     resp.status_code = 401
-    #     return resp
     pass
 
 @app.route('/login',methods=['GET', 'POST'])
@@ -65,13 +59,15 @@ def login():
     _username = content['Username']
     _password = content['Password']
     # print(_username,_password)
-    if _username and _password:
+    if _password:
 
         
         cur = conn.cursor()
-        query = f"SELECT * FROM accounts WHERE uselogin = '{_username}'"
+        query = f"SELECT * FROM accounts WHERE uselogin = '{_username}'" # powoduje błąd przy zle podanym loginie.
         cur.execute(query)
         row = cur.fetchone()
+        if row == None:
+            return jsonify({'Message': 'password or login is wrong'})
         username = row[1]
         password = row[2]
         cur.close()

@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import {
     StyleSheet,
     Text,
@@ -9,6 +10,7 @@ import {
     Image,
 } from 'react-native';
 import Log from './App/Log';
+import TabNavigator from './App/Home';
 import PahoConnection from './App/PahoConnection';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { NavigationContainer } from '@react-navigation/native';
@@ -21,8 +23,8 @@ const Main = ({ navigation }) => {
                 <Text style={styles.Text1}>Industry APP</Text>
             </View>
             <TouchableOpacity
-                onPress={() => navigation.navigate('Log')}
-                style={styles.startbutton} 
+                onPress={() => navigation.navigate('Paho')}
+                style={styles.startbutton}
             >
                 <Text style={styles.text2}>Let's start</Text>
 
@@ -43,12 +45,17 @@ function App() {
                     component={Main}
                     options={{ headerShown: false }}
                 />
-                <Stack.Screen name='Paho' component={PahoConnection} />
                 <Stack.Screen
                     name='Log'
                     component={Log}
                     options={{ headerShown: false }}
                 />
+                <Stack.Screen
+                    name='Home'
+                    component={TabNavigator}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen name='Paho' component={PahoConnection} />
             </Stack.Navigator>
         </NavigationContainer>
     );

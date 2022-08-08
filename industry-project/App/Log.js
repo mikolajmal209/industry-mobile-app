@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import {
     StyleSheet,
     View,
@@ -23,7 +24,7 @@ class Log extends Component {
         var Username = this.state.username;
         var Password = this.state.password;
 
-        if (Username.length == 0 || Password.length == 0) {
+        if (Username.length === 0 || Password.length === 0) {
             alert('Required Field Is Missing!!!');
         } else {
             let APIURL = 'http://192.168.1.59:5000/login';
@@ -50,7 +51,7 @@ class Log extends Component {
                 .then((Response) => {
                     if (Response.Message == 'Success') {
                         console.log('true');
-                        this.props.navigation.navigate('Paho');
+                        this.props.navigation.navigate('Home');
                     } else if (
                         Response.Message == 'password or login is wrong'
                     ) {
@@ -75,18 +76,18 @@ class Log extends Component {
         return (
             <View style={styles.viewStyle}>
                 <View style={styles.action}>
+                    <Ionicons name='log-in' size={20} color='#7fffd4' />
                     <TextInput
                         placeholder='Enter Username'
-                        placeholderTextColor='#000'
                         style={styles.textInput}
                         onChangeText={(username) => this.setState({ username })}
                     />
                 </View>
 
                 <View style={styles.action}>
+                    <Ionicons name='lock-closed' size={20} color='#7fffd4' />
                     <TextInput
                         placeholder='Enter Password'
-                        placeholderTextColor='#000'
                         style={styles.textInput}
                         secureTextEntry={
                             this.state.secureTextEntry ? true : false
@@ -119,30 +120,24 @@ const styles = StyleSheet.create({
     viewStyle: {
         flex: 1,
         padding: 20,
-        marginTop: 50,
-        backgroundColor: '#f0ffff',
+        backgroundColor: '#fff',
+        justifyContent: 'center',
     },
     textInput: {
-        borderBottomColor: '#000',
-        borderBottomWidth: 1,
-        marginBottom: 50,
         height: 40,
+        flex:1,
         fontSize: 20,
-        flex: 1,
-    },
-    button: {
-        alignItems: 'center',
         justifyContent: 'center',
-        height: 35,
-        width: 150,
-        borderRadius: 10,
-        backgroundColor: '#000',
+        borderColor: '#7fffd4',
+        borderBottomWidth: 2,
+        borderRadius:10,
+        paddingLeft: 5
     },
     action: {
         flexDirection: 'row',
-        marginTop: 10,
-        paddingBottom: 5,
         width: '100%',
+        alignItems: 'center',
+        marginTop: 25,
     },
     text: {
         fontSize: 18,
@@ -160,7 +155,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     loginButton: {
-        backgroundColor: '#deb887',
+        backgroundColor: '#7fffd4',
         color: 'white',
         height: 40,
         justifyContent: 'center', //up dwn
