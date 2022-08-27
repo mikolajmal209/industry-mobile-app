@@ -27,13 +27,14 @@ class Log extends Component {
         if (Username.length === 0 || Password.length === 0) {
             alert('Required Field Is Missing!!!');
         } else {
-            let APIURL = 'http://192.168.1.59:5000/login';
+            let APIURL = 'http://192.168.137.203:5000/login';
 
             let headers = {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                // 'Access-Control-Allow-Origin': 'http://192.168.1.59:5000/login',
-                // 'Access-Control-Allow-Credentials': true,
+                'Access-Control-Allow-Origin':
+                    'http://192.168.137.203:5000/login',
+                'Access-Control-Allow-Credentials': false,
             };
 
             let Data = {
@@ -51,7 +52,7 @@ class Log extends Component {
                 .then((Response) => {
                     if (Response.Message == 'Success') {
                         console.log('true');
-                        this.props.navigation.navigate('Home');
+                        this.props.navigation.navigate('Main');
                     } else if (
                         Response.Message == 'password or login is wrong'
                     ) {
@@ -125,13 +126,13 @@ const styles = StyleSheet.create({
     },
     textInput: {
         height: 40,
-        flex:1,
+        flex: 1,
         fontSize: 20,
         justifyContent: 'center',
         borderColor: '#7fffd4',
         borderBottomWidth: 2,
-        borderRadius:10,
-        paddingLeft: 5
+        borderRadius: 10,
+        paddingLeft: 5,
     },
     action: {
         flexDirection: 'row',

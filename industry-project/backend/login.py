@@ -4,8 +4,6 @@ from requests import session
 from flask import Flask,jsonify,request,session
 from flask_sqlalchemy import SQLAlchemy
 import psycopg2
-import requests
-import json
 from flask_cors import CORS, cross_origin
 
 
@@ -25,35 +23,18 @@ try:
         user = username,
         password = pwd,
         port = port_id    )
-    # query = "select * from accounts   WHERE uselogin = 'admin'"
-    # cur = conn.cursor()
-    # cur.execute(query)
-    # records = cur.fetchall()
-    # for row in records:
-    #     print('id',row[0])
-    #     print('login',row[1])
-    #     print('pass',row[2])
 except Exception as error:
     print(error)
 
 
-@app.route('/')
-@cross_origin()
-def home():
-    pass
+# @app.route('/')
+# @cross_origin()
+# def home():
+#     pass
 
 @app.route('/login',methods=['GET', 'POST'])
+@cross_origin()
 def login():
-    # _json = request.json
-    # _username = _json['username']
-    # _password = _json['password']
-    # print(_password)
-    # if _username and _password:
-    #     return jsonify({'message': 'You are logged succesfully'})
-    # else:
-    #     resp = jsonify({'message': 'Invalide credentials'})
-    #     resp.status_code = 400
-    #     return resp
     content = request.get_json(force=False, silent=False, cache=True)
     
     _username = content['Username']
@@ -63,7 +44,7 @@ def login():
 
         
         cur = conn.cursor()
-        query = f"SELECT * FROM accounts WHERE uselogin = '{_username}'" # powoduje błąd przy zle podanym loginie.
+        query = f"SELECT * FROM accounts WHERE uselogin = '{_username}'"
         cur.execute(query)
         row = cur.fetchone()
         if row == None:

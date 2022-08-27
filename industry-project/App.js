@@ -23,7 +23,7 @@ const Main = ({ navigation }) => {
                 <Text style={styles.Text1}>Industry APP</Text>
             </View>
             <TouchableOpacity
-                onPress={() => navigation.navigate('Paho')}
+                onPress={() => navigation.navigate('Home')}
                 style={styles.startbutton}
             >
                 <Text style={styles.text2}>Let's start</Text>
@@ -39,7 +39,7 @@ const Stack = createNativeStackNavigator();
 function App() {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName='Main'>
+            <Stack.Navigator initialRouteName='Log'>
                 <Stack.Screen
                     name='Main'
                     component={Main}
