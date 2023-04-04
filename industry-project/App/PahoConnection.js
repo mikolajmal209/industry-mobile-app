@@ -8,14 +8,15 @@ import {
     TouchableOpacity,
     Text,
     SafeAreaView,
+    TextInput,
 } from 'react-native';
 import Paho from 'paho-mqtt';
 import { getDistance } from 'geolib';
 class Poho extends React.Component {
     connection() {
-        let NewMap = new MapScreen();
-        NewMap._getLocationAsync();
-        let distance = NewMap.state.distance;
+        // let NewMap = new MapScreen();
+        // NewMap._getLocationAsync();
+        // let distance = NewMap.state.distance;
         // let getDistance1 = NewMap._handleMapRegionChange;
         // getDistance1();
         // let NewLatitude = NewMap.state.mapRegion.latitude;
@@ -24,7 +25,7 @@ class Poho extends React.Component {
         //     { latitude: 50.288703, longitude: 18.677314 },
         //     { latitude: NewLatitude, longitude: newLongitude }
         // );
-        console.log(distance);
+        // console.log(distance);
 
         var client = new Paho.Client(
             'broker.mqttdashboard.com',
@@ -64,6 +65,9 @@ class Poho extends React.Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
+                <TextInput placeholder='nazwa serwera/ip' style={styles.TextInput}></TextInput>
+                <TextInput placeholder='Port' style={styles.TextInput}></TextInput>
+                <TextInput placeholder='ClientID' style={styles.TextInput}></TextInput>
                 <TouchableOpacity
                     style={styles.przycisk}
                     onPress={() => {
@@ -82,13 +86,21 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
+    },
+    TextInput:{
+        margin: 10,
+        borderWidth: 1,
+        height: 40,
+        width: '80%',
+        padding: 10,
     },
     przycisk: {
         backgroundColor: '#7fffd4',
-        padding: 20,
+        padding: 10,
         width: '50%',
-        borderRadius: 20,
+        borderRadius: 10,
+        margin: 10,
     },
     Text1: {
         fontSize: 16,

@@ -40,7 +40,6 @@ export default class MapScreen extends Component {
         let location = await Location.getCurrentPositionAsync({});
         this.setState({ locationResult: JSON.stringify(location) });
 
-        // Center the map on the location we just fetched.
         this.setState({
             mapRegion: {
                 latitude: location.coords.latitude,
@@ -86,7 +85,7 @@ export default class MapScreen extends Component {
         return (
             <View style={styles.container}>
                 <Text style={styles.paragraph}>Zoom, and tap on the map!</Text>
-                <Text  style={styles.paragraph}>{this.state.distance}</Text>
+                <Text  style={styles.paragraph}>Distance to pipe system - {this.state.distance}m</Text>
                 
                 {this.state.locationResult === null ? (
                     <Text state>Finding your current location...</Text>

@@ -32,14 +32,15 @@ const Main = ({ navigation }) => {
             </TouchableOpacity>
         </SafeAreaView>
     );
-};
+}; 
 
 const Stack = createNativeStackNavigator();
 
 function App() {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName='Log'>
+            <Stack.Navigator initialRouteName='Main
+            '>
                 <Stack.Screen
                     name='Main'
                     component={Main}

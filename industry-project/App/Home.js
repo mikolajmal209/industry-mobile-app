@@ -5,6 +5,7 @@ import MapScreen from './MapScreen';
 import PahoConnection from './PahoConnection';
 import Charts from './Charts';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import ControlPanel from './ControlPanel';
 
 const Tab = createBottomTabNavigator();
 
@@ -37,6 +38,15 @@ const TabNavigator = () => {
                 options={{
                     tabBarIcon: ({ color, size }) => (
                         <Ionicons name='wifi' size={size} color={color} />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name='ControlPanel'
+                component={ControlPanel}
+                options={{
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name='rocket' size={size} color={color} />
                     ),
                 }}
             />

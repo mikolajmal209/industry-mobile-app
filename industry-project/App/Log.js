@@ -48,7 +48,13 @@ class Log extends Component {
                 headers: headers,
                 body: JSON.stringify(Data),
             })
-                .then((Response) => Response.json())
+                .then((Response) => {
+                    if(Response.ok)
+                    {
+                        return Response.json(); 
+                    }
+                throw new Error('Something went wrong');
+            })
                 .then((Response) => {
                     if (Response.Message == 'Success') {
                         console.log('true');
@@ -59,10 +65,10 @@ class Log extends Component {
                         alert('Wrong Username or Password!!!');
                     }
                     // console.log(Data);
-                });
-            // .catch((error) => {
-            //     console.error('ERROR FOUND' + error);
-            // });
+                })
+            .catch(() => {
+                console.error('ERROR FOUND' + error);
+            });
         }
     };
 
@@ -87,7 +93,7 @@ class Log extends Component {
 
                 <View style={styles.action}>
                     <Ionicons name='lock-closed' size={20} color='#7fffd4' />
-                    <TextInput
+                        <TextInput
                         placeholder='Enter Password'
                         style={styles.textInput}
                         secureTextEntry={
