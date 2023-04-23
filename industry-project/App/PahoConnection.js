@@ -13,61 +13,80 @@ import {
 import Paho from 'paho-mqtt';
 import { getDistance } from 'geolib';
 class Poho extends React.Component {
+
+    constructor(props){
+        super(props);
+        this.state={
+        host:  '',
+        port: 0,
+        clientId: ''
+        };
+    }
     connection() {
-        // let NewMap = new MapScreen();
-        // NewMap._getLocationAsync();
-        // let distance = NewMap.state.distance;
-        // let getDistance1 = NewMap._handleMapRegionChange;
-        // getDistance1();
-        // let NewLatitude = NewMap.state.mapRegion.latitude;
-        // let newLongitude = NewMap.state.mapRegion.longitude;
-        // let distance = getDistance(
-        //     { latitude: 50.288703, longitude: 18.677314 },
-        //     { latitude: NewLatitude, longitude: newLongitude }
-        // );
-        // console.log(distance);
+        var host = this.state.host;
+        var localPort = this.state.port;
+        var clientId = this.state.clientId
+
 
         var client = new Paho.Client(
-            'broker.mqttdashboard.com',
-            Number(8000),
-            'clientId-5PySlq0cUq'
+            host,
+            localPort,
+            clientId
         );
-        client.onMessageArrived = function (message) {
-            console.log(
-                'Topic: ' +
-                    message.destinationName +
-                    ', Message: ' +
-                    message.payloadString
-            );
-            alert(message.payloadString);
-        };
-        client.onMessageDelivered = function (message) {
-            console.log('Message was delivered');
-        };
+        // client.onMessageArrived = function (message) {
+        //     console.log(
+        //         'Topic: ' +
+        //             message.destinationName +
+        //             ', Message: ' +
+        //             message.payloadString
+        //     );
+        //     alert(message.payloadString);
+        // };
+        // client.onMessageDelivered = function (message) {
+        //     console.log('Message was delivered');
+        // };
 
         client.connect({
-            onSuccess: function () {
-                console.log('Połącznie testowe z Beagle');
-                client.subscribe('testtopicGliwice1');
-                client.send('testtopicGliwice1', 'beagleboneGliwice');
-                // global.par1 = true;
-            },
-            onFailure: function () {
-                console.log('Brak połączenia');
-                // client.subscribe('test');
-                global.par1 = false;
-            },
             // userName: 'Mikolaj',
             // password: 'Kospit21',
-            // useSSL: true,
+            useSSL: true,
+            cleanSession: true,
+            // protocol: 'wss',
+
+            onSuccess: function () {
+                console.log('Połącznie');
+                // client.subscribe('testtopicGliwice1');
+                // client.send('testtopicGliwice1', 'beagleboneGliwice');
+            },
+            onFailure: function (error) {
+                console.log(error);
+                console.log(host);
+                console.log(localPort);
+                // client.subscribe('test');
+            },
+            
         });
+
+        // client.subscribe('my/test/topic');
     }
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <TextInput placeholder='nazwa serwera/ip' style={styles.TextInput}></TextInput>
-                <TextInput placeholder='Port' style={styles.TextInput}></TextInput>
-                <TextInput placeholder='ClientID' style={styles.TextInput}></TextInput>
+                <TextInput 
+                placeholder='nazwa serwera/ip' 
+                style={styles.TextInput}
+                onChangeText={(host) => this.setState({ host })}>
+                </TextInput>
+                <TextInput 
+                placeholder='Port' 
+                style={styles.TextInput}
+                onChangeText={ (localPort)=> this.setState({ port: parseInt(localPort) })}>
+                </TextInput>
+                <TextInput 
+                placeholder='ClientID' 
+                style={styles.TextInput}
+                onChangeText={(clientId) => this.setState({ clientId })}>
+                </TextInput>
                 <TouchableOpacity
                     style={styles.przycisk}
                     onPress={() => {
