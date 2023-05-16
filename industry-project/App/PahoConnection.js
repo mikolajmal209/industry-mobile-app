@@ -19,49 +19,54 @@ class Poho extends React.Component {
         this.state={
         host:  '',
         port: 0,
-        clientId: ''
+        clientId: '',
+        userName: '',
+        password: ''
         };
     }
     connection() {
         var host = this.state.host;
         var localPort = this.state.port;
         var clientId = this.state.clientId
-
+        var userName = this.state.userName;
+        var password = this.state.password
 
         var client = new Paho.Client(
             host,
             localPort,
-            clientId
+            clientId,
         );
-        // client.onMessageArrived = function (message) {
-        //     console.log(
-        //         'Topic: ' +
-        //             message.destinationName +
-        //             ', Message: ' +
-        //             message.payloadString
-        //     );
-        //     alert(message.payloadString);
-        // };
-        // client.onMessageDelivered = function (message) {
-        //     console.log('Message was delivered');
-        // };
+        client.onMessageArrived = function (message) {
+            console.log(
+                'Topic: ' +
+                    message.destinationName +
+                    ', Message: ' +
+                    message.payloadString
+            );
+            alert(message.payloadString);
+        };
+        client.onMessageDelivered = function (message) {
+            console.log('Message was delivered');
+        };
 
         client.connect({
-            // userName: 'Mikolaj',
-            // password: 'Kospit21',
+         
             useSSL: true,
-            cleanSession: true,
+            userName: userName,
+            password: password,
             // protocol: 'wss',
 
             onSuccess: function () {
                 console.log('Połącznie');
                 // client.subscribe('testtopicGliwice1');
-                // client.send('testtopicGliwice1', 'beagleboneGliwice');
+                client.send('my/test/topic', 'beagleboneGliwice');
             },
             onFailure: function (error) {
                 console.log(error);
                 console.log(host);
                 console.log(localPort);
+                console.log(this.userName);
+
                 // client.subscribe('test');
             },
             
@@ -83,9 +88,17 @@ class Poho extends React.Component {
                 onChangeText={ (localPort)=> this.setState({ port: parseInt(localPort) })}>
                 </TextInput>
                 <TextInput 
-                placeholder='ClientID' 
+                placeholder='Username' 
                 style={styles.TextInput}
-                onChangeText={(clientId) => this.setState({ clientId })}>
+                onChangeText={(userName) => this.setState({ userName })}>
+                </TextInput>
+                <TextInput 
+                placeholder='Password' 
+                secureTextEntry={true}
+                style={styles.TextInput}
+                onChangeText={ (password)=> this.setState({ password })}
+                >
+                    
                 </TextInput>
                 <TouchableOpacity
                     style={styles.przycisk}
