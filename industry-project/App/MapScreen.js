@@ -4,8 +4,11 @@ import * as Location from 'expo-location';
 import MapView, { Marker } from 'react-native-maps';
 import Constants from 'expo-constants';
 import { getDistance } from 'geolib';
+import SharedMsg from './context';
 
 export default class MapScreen extends Component {
+
+    
     state = {
         mapRegion: {
             latitude: 50.288703,
@@ -59,18 +62,6 @@ export default class MapScreen extends Component {
             distance: newDistance,
         });
     };
-
-    // _getDistance1() {
-
-    //     let Distance = getDistance(
-    //         { latitude: 50.288703, longitude: 18.677314 },
-    //         {
-    //             latitude: location.coords.latitude,
-    //             longitude: location.coords.longitude,
-    //         }
-    //     );
-    //     return Distance;
-    // }
 
     _CustomMarker() {
         return (
@@ -126,29 +117,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingTop: Constants.statusBarHeight,
-        backgroundColor: '#ecf0f1',
+        backgroundColor: '#3f3fb6',
+        width: '100%',
+        height: '100%',
+     
     },
     paragraph: {
         margin: 24,
         fontSize: 18,
         fontWeight: 'bold',
         textAlign: 'center',
-        color: '#34495e',
+        color: '#fff',
+       
     },
 });
-
-// import React, { useState } from 'react';
-// import { StyleSheet, View, Text, Button } from 'react-native';
-
-// export default function MapScreen() {
-//     return <View></View>;
-// }
-
-// const styles = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//         backgroundColor: 'blue',
-//         alignItems: 'center',
-//         justifyContent: 'center',
-//     },
-// });

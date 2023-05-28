@@ -2,19 +2,22 @@ import React, { Component, useState } from 'react';
 import { render } from 'react-dom';
 import { Pressable,StyleSheet, View, Text, Button } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
+import ShareValueContext from './context';
+import { Line, Circle } from 'react-native-svg';
 export default class ControlPanel extends Component{
    
-    
+    static contextType = ShareValueContext;
     render() {
+
         return(
-            <SafeAreaView >
+            <SafeAreaView style={styles.container} >
                 
                 <Text style={styles.buttonTextStyle1}>Panel Sterowania</Text>
 
+                <Text style={styles.buttonTextStyle1}>Water Level - {this.context.sharedValue}</Text>
                 <View style={styles.container}>
 
-                    <View>
+                    <View styles = {styles.PanelButtons}>
                         <Pressable
                         onPress={ready}
                         style= {styles.button1}>
@@ -34,8 +37,9 @@ export default class ControlPanel extends Component{
                         </Pressable>
                     </View>
 
-                    <View>
-                    <Pressable
+                  
+                    <View style = {styles.PanelButtons}>
+                        <Pressable
                         onPress={ready}
                         style= {styles.button2}>
                             <Text  style={styles.buttonTextStyle}>Z1 Otwarty</Text>
@@ -46,50 +50,11 @@ export default class ControlPanel extends Component{
                         style= {styles.button2}>
                             <Text  style={styles.buttonTextStyle}>Z2 Otwarty</Text>
                         </Pressable>
-
-                        <Pressable
-                        onPress={ready}
-                        style= {styles.button2}>
-                            <Text  style={styles.buttonTextStyle}>Z3 Otwarty</Text>
-                        </Pressable> 
-
-                        <Pressable
-                        onPress={ready}
-                        style= {styles.button2}>
-                            <Text  style={styles.buttonTextStyle}>Z4 Otwarty</Text>
-                        </Pressable> 
-
-                        <Pressable
-                        onPress={ready}
-                        style= {styles.button2}>
-                            <Text  style={styles.buttonTextStyle}>Mieszadło</Text>
-                        </Pressable> 
-            
-                    
-                        <Pressable
-                        onPress={ready}
-                        style= {styles.button2}>
-                            <Text style={styles.buttonTextStyle}>Poziom dodatku A</Text>
-                        </Pressable> 
-
-                        <Pressable
-                        onPress={ready}
-                        style= {styles.button2}>
-                            <Text  style={styles.buttonTextStyle}>Poziom dodatku B</Text>
-                        </Pressable> 
-
-                        <Pressable
-                        onPress={ready}
-                        style= {styles.button2}>
-                            <Text  style={styles.buttonTextStyle}>Poziom Wody</Text>
-                        </Pressable> 
                     </View>
 
                 </View>
 
-            <View>
 
-            </View>
             </SafeAreaView>
         );
 
@@ -101,10 +66,10 @@ function ready(){
 }
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '$fff',
-        flexDirection: 'row',
-        justifyContent: 'space-evenly'
-        
+        backgroundColor: '#3f3fb6',
+        width: '100%',
+        height: '100%'
+
     },
     button1: {
         backgroundColor: '#6495ED',
@@ -124,18 +89,32 @@ const styles = StyleSheet.create({
         marginTop: '5%',
         marginLeft: '6%',
         textAlign:'center',
+       
     },
 
     buttonTextStyle1:{
         textAlign:'center',
         textAlignVertical: 'center',
         fontSize: 20,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: '#fff'
     },
 
     buttonTextStyle:{
         textAlign:'center',
         textAlignVertical: 'center',
-        fontSize: 13
-    }
+        fontSize: 13,
+        color: '#fff'
+    },
+    PanelButtons:{
+        width: '20%',
+        height: '20%',
+        justifyContent: 'center',
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        borderWidth: 5,
+        borderColor: '#000',
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
+    },
 });

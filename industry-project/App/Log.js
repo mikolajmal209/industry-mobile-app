@@ -127,7 +127,9 @@ const styles = StyleSheet.create({
     viewStyle: {
         flex: 1,
         padding: 20,
-        backgroundColor: '#fff',
+        backgroundColor: '#3f3fb6',
+        width: '100%',
+        height: '100%',
         justifyContent: 'center',
     },
     textInput: {

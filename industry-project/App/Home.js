@@ -6,15 +6,20 @@ import PahoConnection from './PahoConnection';
 import Charts from './Charts';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import ControlPanel from './ControlPanel';
+import { useState } from 'react';
+import ShareValueContext from './context';
 
 const Tab = createBottomTabNavigator();
 
-function HomeScreen() {
-    return <TabNavigator />;
-}
 
 const TabNavigator = () => {
+
+
+
+    const [sharedValue,setSharedValue] = useState('0') ;
     return (
+
+        <ShareValueContext.Provider value={{sharedValue,setSharedValue}}>
         <Tab.Navigator
             screenOptions={{
                 headerShown: false,
@@ -65,14 +70,18 @@ const TabNavigator = () => {
                 }}
             />
         </Tab.Navigator>
+        </ShareValueContext.Provider>
     );
 };
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: '#3f3fb6',
+        width: '100%',
+        height: '100%',
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
     },
 });
 
-export default HomeScreen;
+export default TabNavigator;

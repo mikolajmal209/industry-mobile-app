@@ -16,7 +16,13 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+
+const Stack = createNativeStackNavigator();
+
+
 const Main = ({ navigation }) => {
+
+
     return (
         <SafeAreaView style={styles.container}>
             <View>
@@ -34,31 +40,34 @@ const Main = ({ navigation }) => {
     );
 }; 
 
-const Stack = createNativeStackNavigator();
+
 
 function App() {
+
+
     return (
-        <NavigationContainer>
-            <Stack.Navigator initialRouteName='Main
-            '>
-                <Stack.Screen
-                    name='Main'
-                    component={Main}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name='Log'
-                    component={Log}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name='Home'
-                    component={TabNavigator}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen name='Paho' component={PahoConnection} />
-            </Stack.Navigator>
-        </NavigationContainer>
+      
+            <NavigationContainer>
+                <Stack.Navigator initialRouteName='Main
+                '>
+                    <Stack.Screen
+                        name='Main'
+                        component={Main}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name='Log'
+                        component={Log}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name='Home'
+                        component={TabNavigator}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen name='Paho' component={PahoConnection} />
+                </Stack.Navigator>
+            </NavigationContainer>
     );
 }
 const styles = StyleSheet.create({
