@@ -29,12 +29,12 @@ const Main = ({ navigation }) => {
                 <Text style={styles.Text1}>Industry APP</Text>
             </View>
             <TouchableOpacity
-                onPress={() => navigation.navigate('Home')}
+                onPress={() => navigation.navigate('Log')}
                 style={styles.startbutton}
             >
                 <Text style={styles.text2}>Let's start</Text>
 
-                <Ionicons name='send' size={20} color='#fff' />
+                <Ionicons name='send' size={20} color='#808080' />
             </TouchableOpacity>
         </SafeAreaView>
     );
@@ -72,20 +72,21 @@ function App() {
 }
 const styles = StyleSheet.create({
     container: {
+        
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#3f3fb6',
         alignItems: 'center',
         justifyContent: 'center',
     },
     Text1: {
         fontSize: 30,
         fontWeight: 'bold',
-        color: '#2f4f4f',
+        color: '#fff',
         alignItems: 'center',
         marginTop: 5,
     },
     startbutton: {
-        backgroundColor: '#8fbc8f',
+        backgroundColor: '#7fffd4',
         padding: 20,
         width: '70%',
         borderRadius: 20,
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
     text2: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: '#fff',
+        color: '#808080',
     },
     image1: {
         width: 200,

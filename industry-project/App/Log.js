@@ -8,6 +8,8 @@ import {
     TextInput,
     TouchableOpacity,
 } from 'react-native';
+import BouncyCheckbox from "react-native-bouncy-checkbox";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class Log extends Component {
     constructor(props) {
@@ -17,8 +19,50 @@ class Log extends Component {
             password: '',
             check_textInputChange: false,
             secureTextEntry: true,
+            isChecked: true
         };
     }
+
+    
+    componentDidMount() {
+        const username = this.getRememberedUser();
+        this.setState({ 
+           username: username,  });
+           console.log('Powinno sie udac')
+        }
+    
+   
+    
+
+     rememberUser= async() =>  {
+        try {
+          await AsyncStorage.setItem('@key', this.state.username);
+          console.log(this.state.username)
+        } catch (error) {
+          console.log(error);
+        }
+        };
+     getRememberedUser = async() => {
+
+    
+        try {
+          const username = await AsyncStorage.getItem('@key');
+          if (username !== null) {
+           console.log(username)
+            return username;
+          }
+        } catch (error) {
+            console.log(error);
+        }
+        };
+
+         forgetUser = async() => {
+          try {
+            await AsyncStorage.removeItem('@key');
+          } catch (error) {
+            console.log(error);
+          }
+        };
 
     InsertRecord = () => {
         var Username = this.state.username;
@@ -27,19 +71,16 @@ class Log extends Component {
         if (Username.length === 0 || Password.length === 0) {
             alert('Required Field Is Missing!!!');
         } else {
-            let APIURL = 'http://192.168.137.203:5000/login';
+            let APIURL = 'http://192.168.1.59:7202/api/login';
 
             let headers = {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin':
-                    'http://192.168.137.203:5000/login',
-                'Access-Control-Allow-Credentials': false,
             };
 
             let Data = {
-                Username: Username,
-                Password: Password,
+                userName: Username,
+                password: Password,
             };
 
             fetch(APIURL, {
@@ -51,24 +92,28 @@ class Log extends Component {
                 .then((Response) => {
                     if(Response.ok)
                     {
-                        return Response.json(); 
+                        const  response = Response.json();
+                        return response;
                     }
                 throw new Error('Something went wrong');
-            })
-                .then((Response) => {
-                    if (Response.Message == 'Success') {
-                        console.log('true');
-                        this.props.navigation.navigate('Main');
-                    } else if (
-                        Response.Message == 'password or login is wrong'
-                    ) {
+            }).then((Response) => {
+                const response = JSON.parse(Response)
+                    if (response.Message == "Success") {
+                        this.props.navigation.navigate('Home');
+                    } else {
                         alert('Wrong Username or Password!!!');
+
                     }
                     // console.log(Data);
-                })
-            .catch(() => {
-                console.error('ERROR FOUND' + error);
+                }).catch((error) => {
+                console.error('ERROR ', error);
             });
+            if (this.state.isChecked === true) {
+                //user wants to be remembered.
+                  this.rememberUser();
+                } else {
+                  this.forgetUser();
+                }
         }
     };
 
@@ -77,42 +122,57 @@ class Log extends Component {
             ...this.state,
             secureTextEntry: !this.state.secureTextEntry,
         });
-    }
+    };
+
 
     render() {
+        const currentName = this.state.username
         return (
             <View style={styles.viewStyle}>
                 <View style={styles.action}>
-                    <Ionicons name='log-in' size={20} color='#7fffd4' />
+                  
                     <TextInput
+                    // ogarnac jak wstawic tutaj wartosc zeby wyswietliło ta jebana nazwe
                         placeholder='Enter Username'
                         style={styles.textInput}
                         onChangeText={(username) => this.setState({ username })}
                     />
+                      <Ionicons name='log-in' size={20} color='#7fffd4' />
                 </View>
 
                 <View style={styles.action}>
-                    <Ionicons name='lock-closed' size={20} color='#7fffd4' />
+                   
                         <TextInput
+                        
                         placeholder='Enter Password'
                         style={styles.textInput}
                         secureTextEntry={
                             this.state.secureTextEntry ? true : false
                         }
-                        onChangeText={(password) => this.setState({ password })}
+                        on
+                        ChangeText={(password) => this.setState({ password })}
                     />
+                     <Ionicons name='lock-closed' size={20} color='#7fffd4' />
                     <TouchableOpacity
                         onPress={this.updateSecureTextEntry.bind(this)}
                     ></TouchableOpacity>
                 </View>
 
-                {/* Button */}
+                    <BouncyCheckbox
+                    isChecked = {this.state.isChecked}
+                    style={{ margin: 25 }}
+                    fillColor = '#7fffd4'
+                    text = "Remember me"
+                    onPress={() => this.setState({isChecked})}
+                    />
+
 
                 <View style={styles.loginButtonSection}>
                     <Pressable
                         style={styles.loginButton}
                         onPress={() => {
                             this.InsertRecord();
+                            this.props.navigation.navigate('Home');
                         }}
                     >
                         <Text style={styles.text}>Log In</Text>
@@ -133,13 +193,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     textInput: {
-        height: 40,
+        height: 60,
         flex: 1,
         fontSize: 20,
         justifyContent: 'center',
-        borderColor: '#7fffd4',
-        borderBottomWidth: 2,
-        borderRadius: 10,
+        borderColor: '#fff',
+        borderWidth: 2,
+        borderRadius: 6,
         paddingLeft: 5,
     },
     action: {
