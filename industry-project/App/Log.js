@@ -132,12 +132,11 @@ class Log extends Component {
                 <View style={styles.action}>
                   
                     <TextInput
-                    // ogarnac jak wstawic tutaj wartosc zeby wyswietliło ta jebana nazwe
                         placeholder='Enter Username'
                         style={styles.textInput}
                         onChangeText={(username) => this.setState({ username })}
                     />
-                      <Ionicons name='log-in' size={20} color='#7fffd4' />
+                      <Ionicons name='log-in' size={20} color='#38a3a5' />
                 </View>
 
                 <View style={styles.action}>
@@ -152,7 +151,7 @@ class Log extends Component {
                         on
                         ChangeText={(password) => this.setState({ password })}
                     />
-                     <Ionicons name='lock-closed' size={20} color='#7fffd4' />
+                     <Ionicons name='lock-closed' size={20} color='#38a3a5' />
                     <TouchableOpacity
                         onPress={this.updateSecureTextEntry.bind(this)}
                     ></TouchableOpacity>
@@ -161,7 +160,7 @@ class Log extends Component {
                     <BouncyCheckbox
                     isChecked = {this.state.isChecked}
                     style={{ margin: 25 }}
-                    fillColor = '#7fffd4'
+                    fillColor = '#38a3a5'
                     text = "Remember me"
                     onPress={() => this.setState({isChecked})}
                     />
@@ -185,9 +184,10 @@ class Log extends Component {
 
 const styles = StyleSheet.create({
     viewStyle: {
+        fontFamily: 'monospace',
         flex: 1,
         padding: 20,
-        backgroundColor: '#3f3fb6',
+        backgroundColor: '#caf0f8',
         width: '100%',
         height: '100%',
         justifyContent: 'center',
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: 20,
         justifyContent: 'center',
-        borderColor: '#fff',
+        borderColor: '#808080',
         borderWidth: 2,
         borderRadius: 6,
         paddingLeft: 5,
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
         lineHeight: 21,
         fontWeight: 'bold',
         letterSpacing: 0.25,
-        color: 'white',
+        color: '#fff',
         textTransform: 'uppercase',
     },
     loginButtonSection: {
@@ -224,8 +224,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     loginButton: {
-        backgroundColor: '#7fffd4',
-        color: 'white',
+        backgroundColor: '#38a3a5',
+        color: '#fff',
         height: 40,
         justifyContent: 'center', //up dwn
         alignItems: 'center', //r & l

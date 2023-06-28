@@ -4,7 +4,8 @@ import * as Location from 'expo-location';
 import MapView, { Marker } from 'react-native-maps';
 import Constants from 'expo-constants';
 import { getDistance } from 'geolib';
-import SharedMsg from './context';
+
+
 
 export default class MapScreen extends Component {
 
@@ -13,6 +14,7 @@ export default class MapScreen extends Component {
         mapRegion: {
             latitude: 50.288703,
             longitude: 18.677314,
+            
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
         },
@@ -75,7 +77,6 @@ export default class MapScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.paragraph}>Zoom, and tap on the map!</Text>
                 <Text  style={styles.paragraph}>Distance to pipe system - {this.state.distance}m</Text>
                 
                 {this.state.locationResult === null ? (
@@ -117,7 +118,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingTop: Constants.statusBarHeight,
-        backgroundColor: '#3f3fb6',
+        backgroundColor: '#caf0f8',
         width: '100%',
         height: '100%',
      
@@ -125,9 +126,10 @@ const styles = StyleSheet.create({
     paragraph: {
         margin: 24,
         fontSize: 18,
+        fontFamily: 'monospace',
         fontWeight: 'bold',
         textAlign: 'center',
-        color: '#fff',
+        color: '#808080',
        
     },
 });

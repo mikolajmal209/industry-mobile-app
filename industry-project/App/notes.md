@@ -1,0 +1,17 @@
+background-color: #caf0f8,
+button-color: #38a3a5,
+text-color: #808080,
+text-in-button: #fff,
+fontSize: 18,
+fontFamily: 'monospace',
+border-color: #808080,
+lineHeight: 21,
+letterSpacing: 0.25,
+fontWeight: 'bold',
+borderWidth: 2,
+borderRadius: 6,
+
+button:
+height: 40,
+width: '70%',
+borderRadius: 10,

@@ -7,25 +7,24 @@ import Charts from './Charts';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import ControlPanel from './ControlPanel';
 import { useState } from 'react';
-import ShareValueContext from './context';
+import ShareValueContext from './myContext';    
+
 
 const Tab = createBottomTabNavigator();
 
 
 const TabNavigator = () => {
 
-
-
-    const [sharedValue,setSharedValue] = useState('0') ;
+    const [sharedValue,setSharedValue] = useState(0) ;
     return (
-
         <ShareValueContext.Provider value={{sharedValue,setSharedValue}}>
         <Tab.Navigator
             screenOptions={{
                 headerShown: false,
                 tabBarShowLabel: false,
-                tabBarStyle: { backgroundColor: '#7fffd4' },
-                tabBarActiveTintColor: '#8a2be2',
+                tabBarStyle: { backgroundColor: '#38a3a5' },
+                tabBarActiveTintColor: '#22577a',
+                tabBarInactiveTintColor: '#fff',
             }}
         >
             <Tab.Screen

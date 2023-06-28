@@ -16,7 +16,6 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-
 const Stack = createNativeStackNavigator();
 
 
@@ -34,7 +33,7 @@ const Main = ({ navigation }) => {
             >
                 <Text style={styles.text2}>Let's start</Text>
 
-                <Ionicons name='send' size={20} color='#808080' />
+                <Ionicons name='send' size={20} color='#fff' />
             </TouchableOpacity>
         </SafeAreaView>
     );
@@ -72,21 +71,21 @@ function App() {
 }
 const styles = StyleSheet.create({
     container: {
-        
+        fontFamily: 'monospace',
         flex: 1,
-        backgroundColor: '#3f3fb6',
+        backgroundColor: '#caf0f8',
         alignItems: 'center',
         justifyContent: 'center',
     },
     Text1: {
         fontSize: 30,
         fontWeight: 'bold',
-        color: '#fff',
+        color: '#808080',
         alignItems: 'center',
         marginTop: 5,
     },
     startbutton: {
-        backgroundColor: '#7fffd4',
+        backgroundColor: '#38a3a5',
         padding: 20,
         width: '70%',
         borderRadius: 20,
@@ -96,9 +95,9 @@ const styles = StyleSheet.create({
         marginBottom: 80,
     },
     text2: {
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: 'bold',
-        color: '#808080',
+        color: '#fff',
     },
     image1: {
         width: 200,

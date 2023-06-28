@@ -73,7 +73,7 @@ import { Grid, LineChart, XAxis, YAxis } from 'react-native-svg-charts'
     const styles = StyleSheet.create({
         container: {
             flex: 1,
-            backgroundColor: '#3f3fb6',
+            backgroundColor: '#caf0f8',
             alignItems: 'center',
             justifyContent: 'center',
         },

@@ -1,76 +1,104 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useContext, useState } from 'react';
 import { Pressable,StyleSheet, View, Text, Button } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import ShareValueContext from './context';
+import ShareValueContext from './myContext';
 import { Grid, LineChart, XAxis, YAxis } from 'react-native-svg-charts'
 
+// class NewContext extends React.Component {
+//     render() {
+//         return (
+//             <MyProvider>
+//                 <ControlPanel/>
+//             </MyProvider>
+//         )
+//     }
+// }
 export default class ControlPanel extends Component{
-   
+
     static contextType = ShareValueContext;
-    render() {
-        
-        const axesSvg = { fontSize: 10, fill: 'grey' };
-        const verticalContentInset = { top: 10, bottom: 10 }
-        const xAxisHeight = 30
-        const data = [0,100]    
+
+ render() {
+        const {sharedValue,setSharedValue} = this.context;
+        if(sharedValue > 100 ){
+            setSharedValue(100);
+        }else if(sharedValue < 0){
+            setSharedValue(0);
+        }
         let views = [];
-        for (let i = 1; i < 10; i++) {
+        for (let i = 1; i <= 11; i++) {
             views.push(
-                <View key={i} style={[styles.floor, {top: 10*i + '%'}]}>
+                <View key={i} style={[styles.floor, {bottom: 5*i + '%'}]}>
                 </View>
-            );
+                
+                )
+        
         }
         return(
             <SafeAreaView style={styles.container} >
                 
-                <Text style={styles.buttonTextStyle1}>Panel Sterowania</Text>
 
-                <View style={styles.container}>
+                <View style={styles.smallContainer}>
 
                     <View style =  {[styles.PanelButtons, styles.shadowProp]}>
                         <Pressable
-                        onPress={ready}
+                        onPress={() => {console.log(sharedValue)}}
                         style= {styles.button1}>
-                            <Text  style={styles.buttonTextStyle1}>Gotowy</Text>
+                            <Text  style={styles.buttonTextStyle}>Gotowy</Text>
                         </Pressable>
 
                         <Pressable
-                        onPress={ready}
+                        onPress={() => {setSharedValue(5)}}                       
                         style= {styles.button1}>
-                            <Text  style={styles.buttonTextStyle1}>Start</Text>
+                            <Text  style={styles.buttonTextStyle}>Start</Text>
                         </Pressable>
 
                         <Pressable
-                        onPress={ready}
+                        
                         style= {styles.button1}>
-                            <Text  style={styles.buttonTextStyle1}>Stop</Text>
+                            <Text  style={styles.buttonTextStyle}>Stop</Text>
                         </Pressable>
                     </View>
 
                   
                     <View style = {[styles.PanelButtons, styles.shadowProp]}>
                         <Pressable
-                        onPress={ready}
-                        style= {styles.button2}>
+                     
+                        style= {styles.button1}>
                             <Text  style={styles.buttonTextStyle}>Z1 Otwarty</Text>
                         </Pressable>
 
                         <Pressable
-                        onPress={ready}
-                        style= {styles.button2}>
+                        style= {styles.button1}>
                             <Text  style={styles.buttonTextStyle}>Z2 Otwarty</Text>
                         </Pressable>
                     </View>
                 </View>
-                <Text style={styles.Waterlevel}>Water Level - {this.context.sharedValue}</Text>
-                <View style={[styles.tank, { height: '50%' }]} ><Text></Text></View>
-                {/* <View style={styles.partition} ></View>
-                 */}
-                <View style={[styles.floor, {top: 10 + '%'}]}>
+
+
+
+
+                <View style={styles.smallContainer2}>
+
+                    <View style =  {[styles.PanelButtons, styles.shadowProp,{marginLeft:40},{marginTop:50}]}>
+                        <Text style={styles.TextStyle}>Water Level: </Text>
+                        <Text style={styles.TextStyle}>Alarm Status:</Text>
+
+
+                    </View>
+
                 </View>
+                
+
+                <View style={[styles.tank, { height: sharedValue/2 + '%' }]} ><Text></Text></View>
+
+
+                <View style = {styles.LevelBorder}>
+                </View>
+                 
+
                 <View style={styles.partition}></View>
                 
-                
+
 
                 {views}
             </SafeAreaView>
@@ -79,42 +107,47 @@ export default class ControlPanel extends Component{
     };
 };
 
-function ready(){
-    console.log("Gotowy")
-}
+
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: '#caf0f8',
+        width: '100%',
+        height: '100%',
+        flex: 1,
+        direction: 'column',
+    },
+    smallContainer: {
         flex:1,
-        backgroundColor: '#3f3fb6',
+        flexDirection: 'row',
+        alignContent: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        height: 100,
+        marginTop: 20,
+    },
+    smallContainer2: {
+        flex:1,
+        flexDirection: 'column',
+        alignContent: 'center',
+        justifyContent: 'center',
         width: '100%',
         height: '100%'
-
     },
     button1: {
-        backgroundColor: '#6495ED',
+        backgroundColor: '#38a3a5',
         margin: 10,
-        height: 30,
-        width: 80,
+        height: 40,
+        width: '70%',
         borderRadius: 10,
-        textAlign:'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        lineHeight: 21,
+        letterSpacing: 0.25,
     },
 
-    button2: {
-        backgroundColor: '#6495ED',
-        margin: 10,
-        height: 25,
-        width: 100,
-        borderRadius: 5,
-        textAlign:'center',
-       
-    },
-
-    buttonTextStyle1:{
-        textAlign:'center',
-        textAlignVertical: 'center',
+    TextStyle:{
         fontSize: 16,
-        fontWeight: 'bold',
-        color: '#fff'
+        color: '#808080'
     },
     Waterlevel:{
         position: 'absolute',
@@ -130,19 +163,19 @@ const styles = StyleSheet.create({
     buttonTextStyle:{
         textAlign:'center',
         textAlignVertical: 'center',
-        fontSize: 13,
+        fontSize: 18,
         color: '#fff',
         fontWeight: 'bold',
     },
     PanelButtons:{
-        margin: 20,
+        marginLeft: 10,
+        marginTop: 30,
         width: '40%',
-        height: '30%',
+        height: '60%',
         justifyContent: 'center',
         backgroundColor: '#fff',
         alignItems: 'center',
         borderRadius: 4,
-        marginTop: 50
         
     },
     shadowProp: {
@@ -157,17 +190,17 @@ const styles = StyleSheet.create({
     tank: {
         width: '25%',
         position: 'absolute',
-        backgroundColor: 'blue',
-        bottom: '4%',
+        backgroundColor: '#38a3a5',
+        bottom: '5%',
         left: '55%',
         borderTopLeftRadius: 5,
         borderTopRightRadius: 5
     },
     partition: {
-        height: '80%',
+        height: '50.5%',
         width: 2,
         position: 'absolute',
-        top: '10%',
+        bottom: '5%',
         left: '90%',
         backgroundColor: 'black',
     },
@@ -177,5 +210,18 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: '87%',
         backgroundColor: 'black',
+    },
+
+    LevelBorder:{
+        width: '25%',
+        height: '50%',
+        position: 'absolute',
+        bottom: '5%',
+        left: '55%',
+        backgroundColor:'transparent',
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,
+        borderColor: 'grey',
+        borderWidth: 5,
     }
 });
